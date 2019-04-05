@@ -24,5 +24,11 @@ Be reasonably complex
 
 
 <h1> How it work </h1>
+<ul>
+  <li> Home screen will show two options: Intructions OR Play (Background Music)</li>
+  <li> Instructions page: Will either be a new page or pop-up window, will explain objective and key functions </li>
+  <li> Play page will show game UI (option to name your character for custom stats)</li>
+  
+  
 
 
