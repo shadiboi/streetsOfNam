@@ -33,5 +33,5 @@ Streets of Nam AKA Frogger
     <li> Graphical representation of players lives</li>
     <li> Music/additional animations </li>
   </ul>
-![wireframe](streetsOfNam/images/streetsOfNam.jpg)
+![wireframe](images/streetsOfNam.jpg)
 
