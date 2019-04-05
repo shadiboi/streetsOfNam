@@ -22,13 +22,18 @@ Use semantic markup for HTML and CSS (adhere to best practices)
 Be reasonably complex
 
 
-
-<h1> How it work </h1>
+  <h1> GameFlow (MVP) </h1>
 <ul>
-  <li> Home screen will show two options: Intructions OR Play (Background Music)</li>
-  <li> Instructions page: Will either be a new page or pop-up window, will explain objective and key functions </li>
-  <li> Play page will show game UI (option to name your character for custom stats)</li>
+  <li> Home screen will show two options: Instructions OR Play (music)<li>
+  <li> Instructions page: either a new page or pop-up window, will explain game objective and key functions </li>
+  <li> Key functions: up, down, left, right to control directions of character</li>
+  <li> Game objective: cross the streets of Vietnam safely. Only three lives. When you reach the other side you move on to the next level. Speed and volume of motorcyclist will increase as level increase> 
+  <li> Play page: game UI will be a 7x7 grid. <ol><li>Bottom rom will hold character in center position.</li> Following four rows will be "traffic zone" where cyclist wil be moving right to left. Next row above wil lbe "safe zone" which will take player to level two and restart its position with new level displayed and difficulity (speed/volume) increased. Top row will display played lives and current level <li>
+  <li> If player die
   
-  
+
+1.	(Background Music)
+2.	(option to name your character for custom stats
+
 
 
