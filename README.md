@@ -20,18 +20,16 @@ Streets of Nam AKA Frogger
   </ol>
   <h2>Objects:</h2>
   <ul> 
-    <li> Players object</li>
-    <li> Motorcyclist class and factory. Objects will take parameters of name, speed, image, etc. Function to lower players health when collision is made. </li>
-    <li> Three safe house objects which have functions to increase level and render new position</li>
-    <li> Four danger blocks surrounding the "safe houses". WIll have similar functions as cyclist class</li>
+    <li> "Player" object</li>
+    <li> "Motorcyclist" class and factory. Objects will take parameters of name, speed, image, etc. Function to lower players health when collision is made. </li>
+    <li> Three "safe house" objects which have functions to increase level and render new position</li>
+    <li> Four "danger blocks" surrounding the "safe houses". WIll have similar functions as cyclist class</li>
   </ul>
   <h1> Bonus: </h1>
   <ul> 
-    <li> Include a pointing system!</li>
-    <li> Have "gold coins" appear on road, adding to players points.</li>
-    <li> Have "pho" objects appear that increases players lives</li>
-    <li> Make a high score which is reflected by "gold coins" gained </li>
+    <li> Include a pointing system! Have "gold coins" appear on road, adding to players points. Have "pho" objects appear that increases players lives. Make a high score which is reflected by "gold coins" gained </li>
     <li>Add a stagnant cyclist that always keeps the same speed and allows faster cyclest to pass</li>
+  <li> Player 2 options which would use different keys to navigate character</li>
     <li> Graphical representation of players lives</li>
     <li> Music/additional animations </li>
   </ul>
