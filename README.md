@@ -30,7 +30,7 @@ Streets of Nam AKA Frogger
     <li> Have "gold coins" appear on road, adding to players points.</li>
     <li> Have "pho" objects appear that increases players lives</li>
     <li> Make a high score which is reflected by "gold coins" gained </li>
-    <li>Add a stagnant cyclist that always keep the same speed and allows faster cyclest to pass</li>
+    <li>Add a stagnant cyclist that always keeps the same speed and allows faster cyclest to pass</li>
     <li> Graphical representation of players lives</li>
     <li> Music/additional animations </li>
   </ul>
