@@ -1,0 +1,26 @@
+
+.game-square {
+    display: inline-block;
+    border: solid 1px black;
+    width: 40px;
+    height: 20px;
+}
+
+.player {
+    background-color: red;
+}
+
+.scooterOne {
+    background-color: green;
+}
+.scooterTwo {
+    background-color: blue;
+}
+.scooterThree {
+    background-color: pink;
+}
+.scooterFour {
+    background-color: yellow;
+}
+
+
