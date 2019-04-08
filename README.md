@@ -9,11 +9,11 @@ Streets of Nam AKA Frogger
   <li> Key functions: up, down, left, right to control directions of character</li>
   <li> Game objective: cross the streets of Vietnam safely. Only three lives. When you reach the other side you move on to the next level. Speed and volume of motorcyclist will increase as level increase</li> 
   <li> Play page: game UI will be a 7x7 grid.</li> 
-        <ul>
+        <ol>
           <li>Bottom row will hold character in center position.</li> 
           <li> Following four rows will be "traffic zone" where cyclist wil be moving right to left at different speeds. </li> <li> Top row will be "safe zone", however only three of seven blocks will allow player to level up. Other four will kill player. </li> 
           <li> Top row will display stats including players lives and current level. </li>
-    </ul>
+    </ol>
  <li> Landing on "safe house" will invoke next level and render new position with new level displayed</li>
  <li> Difficulty (speed/volume) will increase as levels increase.</li>
   <li> If player loses all THREE lives, game ends</li>
@@ -33,5 +33,5 @@ Streets of Nam AKA Frogger
     <li> Graphical representation of players lives</li>
     <li> Music/additional animations </li>
   </ul>
-![wireframe](streetsOfNam.jpg)'
+![wireframe] (images/streetsOfNam.jpg)
 
