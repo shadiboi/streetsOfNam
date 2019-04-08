@@ -7,7 +7,7 @@ Streets of Nam AKA Frogger
   <li> Home screen will show two options: Instructions OR Play.</li>
   <li> Instructions page: either a new page or pop-up window, will explain game objective and key functions </li>
   <li> Key functions: up, down, left, right to control directions of character</li>
-  <li> Game objective: cross the streets of Vietnam safely. Only three lives. When you reach the other side you move on to the    next level. Speed and volume of motorcyclist will increase as level increase</li> 
+  <li> Game objective: cross the streets of Vietnam safely. Only three lives. When you reach the other side you move on to the next level. Speed and volume of motorcyclist will increase as level increase</li> 
   <li> Play page: game UI will be a 7x7 grid.</li> 
         <ul>
           <li>Bottom row will hold character in center position.</li> 

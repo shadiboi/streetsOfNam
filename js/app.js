@@ -21,19 +21,20 @@ function generateBoardSquares(){
 }
 
 $("#play").on('click', function(){
-    gamePlay = true
+    const $inputName = $('#inputName').val();
+    $('#name').text($inputName)
+    gamePlay = true;
+    player.render();
 })
-
-
-
 
 const scooterGarage = [];
 
 class Scooter {
-    constructor(x,y,name){
+    constructor(x,y,name,speed){
         this.x = x;
         this.y = y;
         this.name = name;
+        this.speed = speed
         scooterGarage.push(this);
     }
     render(){
@@ -53,15 +54,16 @@ class Scooter {
     }
     collision() {
         //looks through garage for scooters with same cordinates
-        for (let i =0; i < scooterGarage.length; i++){
-            if (scooterGarage[i].x == player.x && scooterGarage[i].y == player.y && player.lives > 0) {
+        if (this.x == player.x && this.y == player.y) {
             console.log('collisionScooter')
-            player.lives--;
-            };
+            player.x = 6;
+            player.y = 1;
+            player.render();
+                if(player.lives > 0){ //NOT WORKING! lives go down too fast
+                     player.lives--;
+                     player.gameOver();
+                };      
         }
-    }
-    makeScooter(){
-        let newScooter = new Scooter(`${this.x}, ${this.y}, ${this.name}`)
     }
 }
 
@@ -69,16 +71,19 @@ class Scooter {
 const safeHouse = () => {
     if (player.y == 6){
         player.x = 6;
-        player.y = 1;
+        player.y = 1; 
         player.level++;
         if(player.level == 1){
-        makeScooter(0,3,"scooterFive",800);
+        makeScooter(0,3,"scooterFive",400);
         }
         if (player.level == 2){
-            makeScooter(0,4,"scooterSix", 700);
+            makeScooter(0,4,"scooterSix", 300);
         }
         if (player.level == 3){
-            makeScooter(0,2,"scooterSeven", 600)
+            makeScooter(0,2,"scooterSeven", 200)
+        }
+        if (player.level == 4){
+            makeScooter(0,5,"scooterEight", 100);
         }
     }
 }
@@ -91,28 +96,28 @@ const makeScooter = (x,y, name,speed) => {
         }, speed);
 }
 
-const scooterOne = new Scooter(0,2, "scooterOne")
-const scooterTwo = new Scooter(0,3, "scooterTwo")
-const scooterThree = new Scooter(0,4, "scooterThree")
-const scooterFour = new Scooter(0,5,"scooterFour")
+const scooterOne = new Scooter(0,2, "scooterOne", 300)
+const scooterTwo = new Scooter(0,3, "scooterTwo",1000 )
+const scooterThree = new Scooter(0,4, "scooterThree", 2000)
+const scooterFour = new Scooter(0,5,"scooterFour", 800)
 
 //Move scooters on interval via 'window' selector
 const moveScooters = ( )=> {
     window.setInterval(function(){
     scooterOne.drive()
-}, 1000)
+}, scooterOne.speed)
 
 window.setInterval(function(){
     scooterTwo.drive()
-}, 4000)
+}, scooterTwo.speed)
 
 window.setInterval(function(){
     scooterThree.drive()
-}, 5000)
+}, scooterThree.speed)
 
 window.setInterval(function(){
     scooterFour.drive()
-}, 2000)
+}, scooterFour.speed)
 
 }
 
@@ -130,6 +135,7 @@ const player = {
        $('.player').removeClass('player');
     //add class to new square
        $(`.game-square[x=${this.x}][y=${this.y}]`).addClass("player");
+       this.gameOver();
     //updates stats via .text() ....probably a better way to do this
         $('#level').text(`Level: ${player.level}`);
         $('#lives').text(`Lives: ${player.lives}x`);
@@ -146,15 +152,29 @@ const player = {
         }    
     this.render();
     },
-     collision() {
+    collision() {
          //checks if player has hit any scooters in the garage
         for (let i =0; i < scooterGarage.length; i++){
-            if (scooterGarage[i].x == player.x && scooterGarage[i].y == player.y && player.lives > 0) {
-            console.log('collisionPlayer')
-            player.lives--;
-            };
-        }  
-    } 
+            if (scooterGarage[i].x == player.x && scooterGarage[i].y == player.y) {
+                console.log('collisionPlayer')
+                player.x = 6;
+                player.y = 1;
+                   if(player.lives > 0){ //NOT WORKING! lives go down too fast
+                    player.lives--;
+                    this.gameOver();
+                    }
+            }
+        }     
+    },
+    gameOver() {
+        if(this.lives < 1){
+        // $('.player').removeClass('player');
+        // $(`.game-square[x=${this.x}][y=${this.y}]`).addClass("player");
+        alert("gameOver!!!");
+        location.reload();
+        }
+    }
+     
 }
 
 //adds event listener (up,down,left,right) to player
@@ -175,44 +195,32 @@ $('body').keydown(function(e) {
 
 //displays stats and is rendered in player.render()
 const updateStats = () => {
+    //$('#scoreboard').append(`<h2 id="name"> <h3>`)
     $('#scoreboard').append(`<h3 id="lives"> Lives: ${player.lives}x<h3>`)
     $('#scoreboard').append(`<h3 id="level"> Level: ${player.level}<h3>`)
     window.setInterval(function(){
         $('#level').text(`Level: ${player.level}`);
         $('#lives').text(`Lives: ${player.lives}x`);
             }, 20)
+    
 }
+
+
 
 // const render = () => {
 //     window.setInterval(function(){
 //         player.render();
-//         scooterOne.render();
-//         scooterFour.render();
+//          scooter.render();
 //     }, 20)
 // }
 //Not sure what im doing here ^
 
-// 3.) collision occures (triggers health) when player is in same div as scooter. HOW????
-
-//4.) display score and levels which change with collision
-
-//5.) add "safe house" at end which will increase player levels and scooter speed/volume
-
-//console.log($('div[row="6"]'))
-//$('#scoreboard').append(`<h3 id="lives"> ${player.lives}<h3>`)
-
-//if this div has palyer class name && scooter1-4 class name...execute?
-
-
 ////////////////////MAIN//////////////////////////////////////
-
 generateBoardSquares();
-player.render();
 moveScooters();
 updateStats();
 safeHouse();
-//checkCollision();
-//render();
+
 
 
 
