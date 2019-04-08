@@ -24,6 +24,9 @@ $("#play").on('click', function(){
     gamePlay = true
 })
 
+
+
+
 const scooterGarage = [];
 
 class Scooter {
@@ -34,12 +37,9 @@ class Scooter {
         scooterGarage.push(this);
     }
     render(){
-        $(`.${this.name}`).removeClass(this.name)
-        if (this.x == player.x && this.y == player.y) {
-            console.log('collision!')
-            player.lives--;
-            alert('you got hit')
-        }
+        $(`.${this.name}`).removeClass(this.name);
+        //loops through scooter garage and check for collision with player
+        this.collision();
         $(`.game-square[x=${this.x}][y=${this.y}]`).addClass(this.name);
     }
     drive (){
@@ -51,6 +51,44 @@ class Scooter {
             this.x = 0
         }
     }
+    collision() {
+        //looks through garage for scooters with same cordinates
+        for (let i =0; i < scooterGarage.length; i++){
+            if (scooterGarage[i].x == player.x && scooterGarage[i].y == player.y && player.lives > 0) {
+            console.log('collisionScooter')
+            player.lives--;
+            };
+        }
+    }
+    makeScooter(){
+        let newScooter = new Scooter(`${this.x}, ${this.y}, ${this.name}`)
+    }
+}
+
+//when play reaches end, triggers following:
+const safeHouse = () => {
+    if (player.y == 6){
+        player.x = 6;
+        player.y = 1;
+        player.level++;
+        if(player.level == 1){
+        makeScooter(0,3,"scooterFive",800);
+        }
+        if (player.level == 2){
+            makeScooter(0,4,"scooterSix", 700);
+        }
+        if (player.level == 3){
+            makeScooter(0,2,"scooterSeven", 600)
+        }
+    }
+}
+
+//makes new scooter when player levels up
+const makeScooter = (x,y, name,speed) => {
+        let newScooter = new Scooter (x,y,name,speed);
+        window.setInterval(function(){
+            newScooter.drive()
+        }, speed);
 }
 
 const scooterOne = new Scooter(0,2, "scooterOne")
@@ -75,39 +113,51 @@ window.setInterval(function(){
 window.setInterval(function(){
     scooterFour.drive()
 }, 2000)
+
 }
 
+
 const player = {
+    level: 0,
     lives: 3,
     points: 0,
     x: 6,
     y: 1,
     render(){
-        //console.log(`.game-square [x=${this.x}][y=${this.y}]`)
-        //clear class from prev div
-       $('.player').removeClass('player')
-       //add class to new square
-       if (this.x == scooterOne.x && this.y == scooterOne.y) {
-        console.log('collision!')
-        player.lives--;
-        alert('you got hit')
-    }
+       safeHouse();
+       this.collision();
+    //clear class from prev div
+       $('.player').removeClass('player');
+    //add class to new square
        $(`.game-square[x=${this.x}][y=${this.y}]`).addClass("player");
+    //updates stats via .text() ....probably a better way to do this
+        $('#level').text(`Level: ${player.level}`);
+        $('#lives').text(`Lives: ${player.lives}x`);
     }, 
     move(direction){
         if (direction === "right" && this.x < 11){
                  this.x++
-        }else if (direction === "left" && this.x > 1) {
+        } else if (direction === "left" && this.x > 1) {
                 this.x--
-        }else if (direction === "down" && this.y > 1) {
+        } else if (direction === "down" && this.y > 1) {
                 this.y--
-        }else if (direction === "up" && this.y < 11) {
+        } else if (direction === "up" && this.y < 11) {
                 this.y++
         }    
     this.render();
-    }
+    },
+     collision() {
+         //checks if player has hit any scooters in the garage
+        for (let i =0; i < scooterGarage.length; i++){
+            if (scooterGarage[i].x == player.x && scooterGarage[i].y == player.y && player.lives > 0) {
+            console.log('collisionPlayer')
+            player.lives--;
+            };
+        }  
+    } 
 }
 
+//adds event listener (up,down,left,right) to player
 $('body').keydown(function(e) {
     if(e.keyCode == 37) { 
       player.move('left');
@@ -123,6 +173,16 @@ $('body').keydown(function(e) {
     }
   });
 
+//displays stats and is rendered in player.render()
+const updateStats = () => {
+    $('#scoreboard').append(`<h3 id="lives"> Lives: ${player.lives}x<h3>`)
+    $('#scoreboard').append(`<h3 id="level"> Level: ${player.level}<h3>`)
+    window.setInterval(function(){
+        $('#level').text(`Level: ${player.level}`);
+        $('#lives').text(`Lives: ${player.lives}x`);
+            }, 20)
+}
+
 // const render = () => {
 //     window.setInterval(function(){
 //         player.render();
@@ -130,15 +190,16 @@ $('body').keydown(function(e) {
 //         scooterFour.render();
 //     }, 20)
 // }
-//Not sure what im doing here 
+//Not sure what im doing here ^
 
-// 3.) collision occures (triggers health) when player is insame div as scooter. HOW????
+// 3.) collision occures (triggers health) when player is in same div as scooter. HOW????
 
 //4.) display score and levels which change with collision
 
 //5.) add "safe house" at end which will increase player levels and scooter speed/volume
 
-$('#scoreboard').append(`<h3 id="lives"> ${player.lives}<h3>`)
+//console.log($('div[row="6"]'))
+//$('#scoreboard').append(`<h3 id="lives"> ${player.lives}<h3>`)
 
 //if this div has palyer class name && scooter1-4 class name...execute?
 
@@ -148,6 +209,9 @@ $('#scoreboard').append(`<h3 id="lives"> ${player.lives}<h3>`)
 generateBoardSquares();
 player.render();
 moveScooters();
+updateStats();
+safeHouse();
+//checkCollision();
 //render();
 
 

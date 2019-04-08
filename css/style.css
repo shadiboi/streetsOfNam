@@ -22,13 +22,11 @@ h1 {
 #scoreboard {
     color: white;
 }
-
 .player {
     background-color: red;
 }
-
 .scooterOne {
-    background-image: url('https://previews.123rf.com/images/katarepsius/katarepsius1711/katarepsius171100252/90401576-green-modern-cartoon-cabriolet-car-isolated-on-transparent-background-sport-car-vector-illustration-.jpg');
+    background-color: green;
 }
 .scooterTwo {
     background-color: blue;
@@ -39,5 +37,15 @@ h1 {
 .scooterFour {
     background-color: yellow;
 }
+.scooterFive {
+    background-color: orange
+}
+.scooterSix {
+    background-color: purple;
+}
+.scooterSeven {
+    background-color: white;
+}
+
 
 
