@@ -5,8 +5,12 @@ console.log("RUNNING")
 
 //////////////////GLOBAL VARIABLES/////////////////////////
 let gamePlay = false;
+let collisionAudio = new Audio("audio/audio2.mp3");
+let scoreAudio = new Audio("audio/cash.mp3");
 
 /////////////////FUNCTIONS/////////////////////////////////
+
+
 function generateBoardSquares(){
     for(let y = 6; y >= 1; y--) {
        //console.log('Making Row' + y)
@@ -17,7 +21,6 @@ function generateBoardSquares(){
         }
     }
 }
-
 
 const scooterGarage = [];
 
@@ -48,6 +51,7 @@ class Scooter {
         //looks through garage for scooters with same cordinates
         if (this.x == player.x && this.y == player.y) {
             console.log('collisionScooter')
+            collisionAudio.play();
             player.x = 6;
             player.y = 1;
             player.render();
@@ -66,6 +70,7 @@ const safeHouse = () => {
         player.x = 6;
         player.y = 1; 
         player.level++;
+        scoreAudio.play();
         if(player.level == 1){
         makeScooter(0,3,"scooterFive",400);
         }
@@ -176,6 +181,7 @@ const player = {
         for (let i =0; i < scooterGarage.length; i++){
             if (scooterGarage[i].x == player.x && scooterGarage[i].y == player.y) {
                 console.log('collisionPlayer')
+                collisionAudio.play();
                 player.x = 6;
                 player.y = 1;
                    if(player.lives > 0){ //NOT WORKING! lives go down too fast
@@ -235,20 +241,36 @@ const makeStats = () => {
             }, 20)
 }
 
-const makeStartBtn = () => {
-$('#goTime').append('<input id="inputName" placeholder="Enter name to start"> </input>')
-$('#goTime').append('<button id="play"> GO! </button>')
-
 $('body').on('click','#play', function(e){
     console.log(e.target);
      gamePlay = true;
      const $inputName = $('#inputName').val();
      //#name is located stats
-     $('#name').text($inputName)
+     $('#name').text('Run '+ $inputName + '!')
      player.render();
  })
+ 
+const makeStartBtn = () => {
+$('#goTime').append('<input id="inputName" placeholder="Enter name to start"> </input>')
+$('#goTime').append('<button id="play"> GO! </button>')
+
+$('#go').on('click', function(){
+    console.log('wokr')
+    $('#instructions').remove();
+    $('#container').css('display', 'block');
+    $('#stats').css('display', 'block');
+    $('#goTime').css('display', 'block');
+})
 }
 
+
+
+
+
+// const makeInstructions = () => {
+//     $('body').append('<div id="instructions"> <div>')
+//     $("#instructions").append('<p>HOW TO PLAY</p>')
+//    }
 
 // const render = () => {
 //     window.setInterval(function(){
@@ -266,6 +288,7 @@ safeHouse();
 makeDeathHouse();
 makeSafeHouse();
 makeStartBtn();
+
 
 
 
