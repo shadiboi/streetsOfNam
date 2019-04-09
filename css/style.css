@@ -1,18 +1,25 @@
 body {
-    background-color:white;
+    background-color:black;
 }
+
 #container {
     text-align: center;
 }
-.row {
-    margin: 10px;
-}
 .game-square {
     display: inline-block;
-    border-bottom: dotted 4px yellow;
+    border-bottom: dashed 4px yellow;
     width: 60px;
     height: 50px;
     background-color:black;
+}
+.floor {
+    border-bottom: none;
+}
+.row[row="1"] .game-square{
+    border-bottom: none;
+}
+#goTime {
+    text-align: center;
 }
 h1 {
     font-family: 'Shadows Into Light', cursive;
@@ -20,17 +27,41 @@ h1 {
     color: red;
     text-align: center;
 }
+h3 {
+    text-align: center;
+    color: white;
+}
 #name {
     text-align: center;
 }
-#scoreboard {
-    display: inline;
+#stats {
+    text-align: center;
 }
-.player {
-    background-image: url('../images/player3.gif');
+#stats h2, #stats h3{
+    display: inline-block;
+    font-size: 20px;
+    color: white;
+    padding: 0px 20px 0px 20px;
+}
+.deathHouse {
+    background-image: url('../images/deathHouse2.gif');
     background-position: center;
     background-repeat: no-repeat;
-    background-size: 120%;
+    background-size: 150%;
+    border-bottom: none;
+}
+.safeHouse {
+    background-image: url('../images/safeHouse2.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 150%;
+    border-bottom: none;
+}
+.player {
+    background-image: url('../images/player4.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 150%;
 }
 .scooterOne {
     background-image: url('../images/scooterGif.gif');
@@ -45,7 +76,7 @@ h1 {
     background-size: 150%;
 }
 .scooterThree {
-    background-image: url('../images/scooterGif3.gif');
+    background-image: url('../images/scooterGif.gif');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 120%;
@@ -63,7 +94,7 @@ h1 {
     background-size: 120%;
 }
 .scooterSix {
-    background-image: url('../images/scooterGif4.gif');
+    background-image: url('../images/scooterGif.gif');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 120%;
@@ -80,6 +111,22 @@ h1 {
     background-repeat: no-repeat;
     background-size: 120%;
 }
+.scooterNine {
+    background-image: url('../images/scooterGif4.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 120%;
+}
+a {
+    text-decoration: none;
+    color: green;
+    text-align: center;
+}
+p {
+    text-align: center;
+    color: white;
+}
+
 
 
 

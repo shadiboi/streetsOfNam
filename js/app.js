@@ -6,9 +6,7 @@ console.log("RUNNING")
 //////////////////GLOBAL VARIABLES/////////////////////////
 let gamePlay = false;
 
-
 /////////////////FUNCTIONS/////////////////////////////////
-//Make game board
 function generateBoardSquares(){
     for(let y = 6; y >= 1; y--) {
        //console.log('Making Row' + y)
@@ -20,12 +18,6 @@ function generateBoardSquares(){
     }
 }
 
-$("#play").on('click', function(){
-    const $inputName = $('#inputName').val();
-    $('#name').text($inputName)
-    gamePlay = true;
-    player.render();
-})
 
 const scooterGarage = [];
 
@@ -67,9 +59,10 @@ class Scooter {
     }
 }
 
-//when play reaches end, triggers following:
+
+//when play reaches top row, trigger following:
 const safeHouse = () => {
-    if (player.y == 6){
+    if (player.y == 6 && player.x == 6 || player.y == 6 && player.x == 3 || player.y == 6 && player.x == 9){
         player.x = 6;
         player.y = 1; 
         player.level++;
@@ -85,10 +78,36 @@ const safeHouse = () => {
         if (player.level == 4){
             makeScooter(0,5,"scooterEight", 100);
         }
+        if (player.level == 5){
+            makeScooter(0,4,"scooterNine", 100);
+        }
+    }
+    if (player.y == 6 && player.x == 1 || player.y == 6 && player.x == 2 || player.y == 6 && player.x == 4 || player.y == 6 && player.x == 5
+        || player.y == 6 && player.x == 7 || player.y == 6 && player.x == 8 || player.y == 6 && player.x == 10 || player.y == 6 && player.x == 11) {
+        player.lives--;
+        player.x = 6;
+        player.y = 1; 
     }
 }
+//adds class name 'deathhouse' to divs for styling
+const makeDeathHouse = () => {
+    $('.game-square[x="1"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="2"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="4"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="5"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="7"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="8"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="10"][y="6"]').addClass('deathHouse');
+    $('.game-square[x="11"][y="6"]').addClass('deathHouse');
+}
+//adds class 'safeHouse' to div for styling
+const makeSafeHouse = () => {
+    $('.game-square[x="3"][y="6"]').addClass('safeHouse');
+    $('.game-square[x="6"][y="6"]').addClass('safeHouse');
+    $('.game-square[x="9"][y="6"]').addClass('safeHouse');
+}
 
-//makes new scooter when player levels up
+
 const makeScooter = (x,y, name,speed) => {
         let newScooter = new Scooter (x,y,name,speed);
         window.setInterval(function(){
@@ -176,35 +195,59 @@ const player = {
     }
      
 }
+//Make pho coin health
+// class PhoHealth(or coins?) = {
+//     x: 6,
+//     y: 1,
+//     render() {clear class after cordinates match add life||points
+// }
 
-//adds event listener (up,down,left,right) to player
+
+
+// Adds event listener (up,down,left,right) to player
+// Wont work unless gamePlay is true (fixes bug of player render via keys)
 $('body').keydown(function(e) {
-    if(e.keyCode == 37) { 
-      player.move('left');
-    }
-    else if(e.keyCode == 39) {
-        player.move('right');
-    }
-    else if(e.keyCode == 38) { 
-        player.move('up');
-    }
-    else if(e.keyCode == 40) { 
-        player.move('down');
-    }
-  });
+if (gamePlay == true){
+        if(e.keyCode == 37) { 
+        player.move('left');
+        }
+        else if(e.keyCode == 39) {
+            player.move('right');
+        }
+        else if(e.keyCode == 38) { 
+            player.move('up');
+        }
+        else if(e.keyCode == 40) { 
+            player.move('down');
+        }
+    } 
+});
 
 //displays stats and is rendered in player.render()
-const updateStats = () => {
-    //$('#scoreboard').append(`<h2 id="name"> <h3>`)
-    $('#scoreboard').append(`<h3 id="lives"> Lives: ${player.lives}x<h3>`)
-    $('#scoreboard').append(`<h3 id="level"> Level: ${player.level}<h3>`)
+const makeStats = () => {
+    $('#stats').append(`<h3 id="level"> Level: ${player.level}<h3>`)
+    $('#stats').append('<h2 id="name"> <h2>')
+    $('#stats').append(`<h3 id="lives"> Lives: ${player.lives}x<h3>`)
+   
     window.setInterval(function(){
         $('#level').text(`Level: ${player.level}`);
         $('#lives').text(`Lives: ${player.lives}x`);
             }, 20)
-    
 }
 
+const makeStartBtn = () => {
+$('#goTime').append('<input id="inputName" placeholder="Enter name to start"> </input>')
+$('#goTime').append('<button id="play"> GO! </button>')
+
+$('body').on('click','#play', function(e){
+    console.log(e.target);
+     gamePlay = true;
+     const $inputName = $('#inputName').val();
+     //#name is located stats
+     $('#name').text($inputName)
+     player.render();
+ })
+}
 
 
 // const render = () => {
@@ -218,11 +261,15 @@ const updateStats = () => {
 ////////////////////MAIN//////////////////////////////////////
 generateBoardSquares();
 moveScooters();
-updateStats();
+makeStats();
 safeHouse();
+makeDeathHouse();
+makeSafeHouse();
+makeStartBtn();
 
 
 
+   
 
 
 
