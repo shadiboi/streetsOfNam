@@ -5,8 +5,9 @@ console.log("RUNNING")
 
 //////////////////GLOBAL VARIABLES/////////////////////////
 let gamePlay = false;
-let collisionAudio = new Audio("audio/audio2.mp3");
+let collisionAudio = new Audio("audio/audioSlap.mp3");
 let scoreAudio = new Audio("audio/cash.mp3");
+let gameOver = new Audio("audio/audio2.mp3");
 
 /////////////////FUNCTIONS/////////////////////////////////
 
@@ -91,7 +92,8 @@ const safeHouse = () => {
         || player.y == 6 && player.x == 7 || player.y == 6 && player.x == 8 || player.y == 6 && player.x == 10 || player.y == 6 && player.x == 11) {
         player.lives--;
         player.x = 6;
-        player.y = 1; 
+        player.y = 1;
+        collisionAudio.play(); 
     }
 }
 //adds class name 'deathhouse' to divs for styling
@@ -109,6 +111,7 @@ const makeDeathHouse = () => {
 const makeSafeHouse = () => {
     $('.game-square[x="3"][y="6"]').addClass('safeHouse');
     $('.game-square[x="6"][y="6"]').addClass('safeHouse');
+    //change to safehouseBig if you want to chane center safehouse
     $('.game-square[x="9"][y="6"]').addClass('safeHouse');
 }
 
@@ -194,13 +197,33 @@ const player = {
     gameOver() {
         if(this.lives < 1){
         // $('.player').removeClass('player');
-        // $(`.game-square[x=${this.x}][y=${this.y}]`).addClass("player");
-        alert("gameOver!!!");
-        location.reload();
+        // // $(`.game-square[x=${this.x}][y=${this.y}]`).addClass("player");
+        // alert("gameOver!!!");
+        // location.reload();
+        $('#container').css('display', 'none');
+        $('#stats').css('display', 'none');
+        $('#goTime').css('display', 'none');
+        $('#gameOver').css('display', 'block');
+        $('#title').css('display', 'none');
+        gameOver.play();
         }
-    }
-     
+    } 
 }
+
+const tryAgain = () => {
+    $('#tryAgain').on('click', function(){
+        $('#container').css('display', 'block');
+        $('#stats').css('display', 'block');
+        $('#goTime').css('display', 'block');
+        $('#title').css('display', 'block');
+        $('#gameOver').css('display', 'none');
+        player.lives = 3;
+        player.level = 0;
+    })
+}
+
+
+
 //Make pho coin health
 // class PhoHealth(or coins?) = {
 //     x: 6,
@@ -249,7 +272,7 @@ $('body').on('click','#play', function(e){
      $('#name').text('Run '+ $inputName + '!')
      player.render();
  })
- 
+
 const makeStartBtn = () => {
 $('#goTime').append('<input id="inputName" placeholder="Enter name to start"> </input>')
 $('#goTime').append('<button id="play"> GO! </button>')
@@ -264,7 +287,7 @@ $('#go').on('click', function(){
 }
 
 
-
+//$('#title').css('display', 'none')
 
 
 // const makeInstructions = () => {
@@ -288,6 +311,7 @@ safeHouse();
 makeDeathHouse();
 makeSafeHouse();
 makeStartBtn();
+tryAgain();
 
 
 
