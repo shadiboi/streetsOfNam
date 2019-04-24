@@ -7,32 +7,42 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css?family=Rock+Salt" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
 <body>
-    <h1 id='title'> Streets of Nam </h1>
+<h1 id='title'> Streets of Nam </h1>
 
 <div id='instructions'>
-            <h3> How to Play</h3>
-            <p>Blah blah blah Blah blah blah Blah blah blah Blah blah blah Blah blah blah <br><br>
-                    <a id="go">PLAY</a>
-            </p>
-</div>   
+        <h2> How to Play</h2>
+        <p>
+             Use up, down ,left, right keys to navigate your character: <br><br>
+            <img id="example" src="images/keys.png"> </img><br><br>
+             DODGE motorbikes:<br>
+            <img id='example' src='images/scooterGif.gif'> </img><br>
+           enter ONLY through the 'safe house':<br>
+           <img id='example' src='images/safeHouse10.gif'> </img><br>
+            AVOID the 'spikes':<br>           
+           <img id='example' src='images/deathHouse8.gif'> </img> <br><br>
+        </p>     
+</div>  
+<!-- <p>
+                FUN FACT: of the 90+ million population in Vietnam, <br>37 million were registered with a motorbike and only 2 million with a car. That's a lot of bike!!
+</p>  -->
 
-    <div id="stats"></div>
+<div id="stats"></div>
 
 <div id='container'>
     <div id="gameBoard"> </div>
 </div>
 
-<div id="goTime"></div>
 <div id="gameOver">
     <h1>GAVE OVER</h1>
-    <p>Thought it was easy crossing these threets son? Think again..or better yet, TRY AGAIN!!</p>
-    <button id='tryAgain'> RETRY</button>
+    <p id='gameOverText'>Thought it was easy crossing these threets son? <br>Think again....or better yet....</p>
+    <button id='tryAgain'> TRY AGAIN! </button> <p id='gameOverText'> OR </p> <button id='restart'> RESTART</button>
 </div>
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="js/app.js"></script> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="js/app.js"></script> 
 </body>
 
 </html>

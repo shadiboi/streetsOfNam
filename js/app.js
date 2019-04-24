@@ -12,6 +12,7 @@ let gameOver = new Audio("audio/audio2.mp3");
 /////////////////FUNCTIONS/////////////////////////////////
 
 
+
 function generateBoardSquares(){
     for(let y = 6; y >= 1; y--) {
        //console.log('Making Row' + y)
@@ -53,6 +54,7 @@ class Scooter {
         if (this.x == player.x && this.y == player.y) {
             console.log('collisionScooter')
             collisionAudio.play();
+            
             player.x = 6;
             player.y = 1;
             player.render();
@@ -67,6 +69,12 @@ class Scooter {
 
 //when play reaches top row, trigger following:
 const safeHouse = () => {
+    $('.game-square[x="3"][y="6"]').addClass('safeHouse');
+    $('.game-square[x="6"][y="6"]').addClass('safeHouse');
+    //change to safehouseBig if you want to chane center safehouse
+    $('.game-square[x="9"][y="6"]').addClass('safeHouse');
+    
+    
     if (player.y == 6 && player.x == 6 || player.y == 6 && player.x == 3 || player.y == 6 && player.x == 9){
         player.x = 6;
         player.y = 1; 
@@ -86,6 +94,13 @@ const safeHouse = () => {
         }
         if (player.level == 5){
             makeScooter(0,4,"scooterNine", 100);
+        } 
+        if (player.level == 7){
+            makeScooter(0,3,"scooterTen", 100);
+        }
+        if (player.level == 10){
+            alert('YOU BEAT THE GAME!!! Unfortunately I still need to make a winner page..')
+            
         }
     }
     if (player.y == 6 && player.x == 1 || player.y == 6 && player.x == 2 || player.y == 6 && player.x == 4 || player.y == 6 && player.x == 5
@@ -106,13 +121,6 @@ const makeDeathHouse = () => {
     $('.game-square[x="8"][y="6"]').addClass('deathHouse');
     $('.game-square[x="10"][y="6"]').addClass('deathHouse');
     $('.game-square[x="11"][y="6"]').addClass('deathHouse');
-}
-//adds class 'safeHouse' to div for styling
-const makeSafeHouse = () => {
-    $('.game-square[x="3"][y="6"]').addClass('safeHouse');
-    $('.game-square[x="6"][y="6"]').addClass('safeHouse');
-    //change to safehouseBig if you want to chane center safehouse
-    $('.game-square[x="9"][y="6"]').addClass('safeHouse');
 }
 
 
@@ -217,20 +225,18 @@ const tryAgain = () => {
         $('#goTime').css('display', 'block');
         $('#title').css('display', 'block');
         $('#gameOver').css('display', 'none');
-        player.lives = 3;
-        player.level = 0;
+        $(".game-square #scooterFive").remove()
+        $(".game-square #scooterSix").remove()
+        $(scooterGarage[2]).remove()
+        player.lives = 1;
     })
 }
 
-
-
-//Make pho coin health
-// class PhoHealth(or coins?) = {
-//     x: 6,
-//     y: 1,
-//     render() {clear class after cordinates match add life||points
-// }
-
+const restart = () => {
+    $('#restart').on('click', function(){
+        location.reload();
+    })
+}
 
 
 // Adds event listener (up,down,left,right) to player
@@ -264,6 +270,12 @@ const makeStats = () => {
             }, 20)
 }
 
+
+const makeStartBtn = () => {
+$('#instructions').append('<input id="inputName" placeholder="         ENTER NAME TO START"> </input><br>')
+$('#instructions').append('<button id="play"> BEGIN! </button> ')
+
+
 $('body').on('click','#play', function(e){
     console.log(e.target);
      gamePlay = true;
@@ -271,29 +283,27 @@ $('body').on('click','#play', function(e){
      //#name is located stats
      $('#name').text('Run '+ $inputName + '!')
      player.render();
- })
 
-const makeStartBtn = () => {
-$('#goTime').append('<input id="inputName" placeholder="Enter name to start"> </input>')
-$('#goTime').append('<button id="play"> GO! </button>')
 
-$('#go').on('click', function(){
-    console.log('wokr')
-    $('#instructions').remove();
+         $('#instructions').remove();
     $('#container').css('display', 'block');
     $('#stats').css('display', 'block');
     $('#goTime').css('display', 'block');
-})
+ })
+
 }
 
 
-//$('#title').css('display', 'none')
+
+//Make pho coin health
+// class PhoHealth(or coins?) = {
+//     x: 6,
+//     y: 1,
+//     render() {clear class after cordinates match add life||points
+// }
 
 
-// const makeInstructions = () => {
-//     $('body').append('<div id="instructions"> <div>')
-//     $("#instructions").append('<p>HOW TO PLAY</p>')
-//    }
+
 
 // const render = () => {
 //     window.setInterval(function(){
@@ -309,9 +319,9 @@ moveScooters();
 makeStats();
 safeHouse();
 makeDeathHouse();
-makeSafeHouse();
 makeStartBtn();
 tryAgain();
+restart();
 
 
 
